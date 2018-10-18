@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, ModalController, NavController } from 'ionic-angular';
+import { IonicPage, ModalController, NavController,AlertController } from 'ionic-angular';
 
 import { Item } from '../../models/item';
 import { Items } from '../../providers';
@@ -10,10 +10,13 @@ import { Items } from '../../providers';
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
+  allItems: Item[];
+  searchedItems: Item[];
   currentItems: Item[];
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
+  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController,public alrtCtrl: AlertController) {
+    this.allItems = this.items.query();
+    this.currentItems = this.allItems;
   }
 
   /**
@@ -40,7 +43,40 @@ export class ListMasterPage {
    * Delete an item from the list of items.
    */
   deleteItem(item) {
-    this.items.delete(item);
+    // this.items.delete(item);
+    let confirm = this.alrtCtrl.create({
+      title: 'Delete',
+      message: 'This action cannot be reverted.',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.items.delete(item);
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  /**
+   * Perform a service for the proper items.
+   */
+  getItems(ev) {
+    let val = ev.target.value;
+    if (!val || !val.trim()) {
+      this.currentItems = this.allItems;
+      return;
+    }
+    this.currentItems = this.items.query({
+      node: val
+    });
   }
 
   /**

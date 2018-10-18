@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 import { IonicPage, NavController, ViewController } from 'ionic-angular';
 
+import { Item } from '../../models/item';
+
 @IonicPage()
 @Component({
   selector: 'page-item-create',
@@ -17,11 +19,14 @@ export class ItemCreatePage {
 
   form: FormGroup;
 
+  imgs: Item[] = [];
+
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder, public camera: Camera) {
     this.form = formBuilder.group({
-      profilePic: [''],
-      name: ['', Validators.required],
-      about: ['']
+      img: ['',Validators.required],
+      node: ['',Validators.compose([Validators.required,Validators.pattern('[0-9]*')])],
+      tree: ['', Validators.compose([Validators.required,Validators.pattern('[0-9]*')])],
+      stage: ['', Validators.required]
     });
 
     // Watch the form for changes, and
@@ -38,10 +43,12 @@ export class ItemCreatePage {
     if (Camera['installed']()) {
       this.camera.getPicture({
         destinationType: this.camera.DestinationType.DATA_URL,
-        targetWidth: 96,
-        targetHeight: 96
+        targetWidth: 512,
+        targetHeight: 512
       }).then((data) => {
-        this.form.patchValue({ 'profilePic': 'data:image/jpg;base64,' + data });
+        this.form.patchValue({ 'img': 'data:image/jpg;base64,' + data });
+        // this.imgs.push({ 'pic': 'data:image/jpg;base64,' + data });
+        // this.form.patchValue(this.imgs);
       }, (err) => {
         alert('Unable to take photo');
       })
@@ -55,14 +62,14 @@ export class ItemCreatePage {
     reader.onload = (readerEvent) => {
 
       let imageData = (readerEvent.target as any).result;
-      this.form.patchValue({ 'profilePic': imageData });
+      this.form.patchValue({ 'img': imageData });
     };
 
     reader.readAsDataURL(event.target.files[0]);
   }
 
-  getProfileImageStyle() {
-    return 'url(' + this.form.controls['profilePic'].value + ')'
+  getImageStyle() {
+    return 'url(' + this.form.controls['img'].value + ')'
   }
 
   /**

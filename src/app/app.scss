@@ -14,3 +14,18 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+ion-content{
+    @include linear-gradient(bottom,$earthly);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+
+.main-pad{
+    padding: 10px;
+}
+
+[scrollbar-y-auto] .scroll-content{
+    overflow-y: auto !important; 
+}

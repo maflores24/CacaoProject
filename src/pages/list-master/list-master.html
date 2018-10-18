@@ -1,7 +1,10 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ 'LIST_MASTER_TITLE' | translate }}</ion-title>
+      <button ion-button menuToggle>
+        <ion-icon name='reorder'></ion-icon>
+      </button>
+    <ion-title text-center>{{ 'CPA' | translate }}</ion-title>
 
     <ion-buttons end>
       <button ion-button icon-only (click)="addItem()">
@@ -12,17 +15,17 @@
 
 </ion-header>
 
-<ion-content>
-
-  <ion-list>
+<ion-content scrollbar-y-auto>
+  <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"></ion-searchbar>
+  <ion-list class="main-pad">
     <ion-item-sliding *ngFor="let item of currentItems">
-      <button ion-item (click)="openItem(item)">
-        <ion-avatar item-start>
-          <img [src]="item.profilePic" />
-        </ion-avatar>
-        <h2>{{item.name}}</h2>
-        <p>{{item.about}}</p>
-        <ion-note item-end *ngIf="item.note">{{item.note}}</ion-note>
+      <button class="left-pad" ion-item (click)="openItem(item)">
+        <ion-thumbnail  item-start>
+          <img [src]="item.img" />
+        </ion-thumbnail>
+        <h2>Node: {{item.node}}</h2>
+        <p>Tree: {{item.tree}}</p>
+        <p>Stage: {{item.stage}}</p>
       </button>
 
       <ion-item-options>

@@ -8,11 +8,19 @@
 
 
 <ion-content>
-  <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + item.profilePic + ')'">
-  </div>
-
-  <div class="item-detail" padding>
-    <h2>{{item.name}}</h2>
-    <p>{{item.about}}</p>
-  </div>
+  <ion-card>
+    <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + item.img + ')'">
+      </div>
+    <ion-card-content>
+      <ion-card-title>
+        <b>Node: {{item.node}}</b>
+      </ion-card-title>
+      <ion-item>
+        <ion-icon name="leaf" item-left></ion-icon>Tree <ion-badge color="light" item-end>{{item.tree}}</ion-badge>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="analytics" item-left></ion-icon>Stage <ion-badge color="light" item-end>{{item.stage}}</ion-badge>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -1,12 +1,12 @@
 page-item-create {
-  .profile-image-wrapper {
+  .node-image-wrapper {
     text-align: center;
     margin: 20px 0;
 
-    .profile-image {
+    .node-image {
       width: 96px;
       height: 96px;
-      border-radius: 50%;
+      // border-radius: 50%;
 
       display: inline-block;
 
@@ -15,21 +15,34 @@ page-item-create {
       background-position: center;
     }
 
-    .profile-image-placeholder {
+    .node-image-placeholder {
       display: inline-block;
 
       background-color: #eee;
       width: 96px;
       height: 96px;
-      border-radius: 50%;
+      // border-radius: 50%;
 
       font-size: 12px;
 
       ion-icon {
         font-size: 44px;
         margin-bottom: -10px;
-        margin-top: 10px;
+        margin-top: 15px;
       }
     }
   }
+
+  .node-img {
+    width: 96px;
+    height: 96px;
+    // border-radius: 50%;
+
+    display: inline-block;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  
 }
